@@ -1,8 +1,5 @@
-from rest_framework import generics
-from .models import *
-from .serializers import *
 import django_filters
-
+from .models import *
 
 class CategoryFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='icontains')  
