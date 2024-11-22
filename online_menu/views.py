@@ -3,7 +3,19 @@ from .models import *
 from .serializers import *
 from rest_framework.filters import *
 from django_filters.rest_framework import DjangoFilterBackend
+from django.core.management import call_command
+from django.http import JsonResponse
+from django.views import View
 
+class RunMigrationsView(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            call_command('makemigrations')
+            call_command('migrate')
+            return JsonResponse({'status': 'success', 'message': 'Migrations applied successfully'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+        
 class CategoryCreateView(generics.CreateAPIView):
         queryset = Category.objects.all()
         serializer_class = Categoryserializer

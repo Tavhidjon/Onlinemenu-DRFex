@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
+    path('', RunMigrationsView.as_view(), name='run-migrations'),
     path('categories/',CategoryListView.as_view(), name='category-list'),
     path('categories/create/',CategoryCreateView.as_view(), name='category-create'),
     path('categories/<int:pk>/update/',CategoryUpdate.as_view(), name='category-update'),
